@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px; /* Add padding to the body to create margins on the sides */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensure the container takes the full width */
+    max-width: 1200px; /* Set a maximum width for the container */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+}
+
+input {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px; /* Add margin to separate buttons */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.clear-button {
+    background-color: #ff4d4d; /* Red color for clear buttons */
+}
+
+.clear-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+#storageResult, #slotResult, #bytecodeResult, #hexResult, #intResult, #padResult, #jsonResult {
+    margin-top: 20px;
+    word-wrap: break-word;
+    white-space: nowrap; /* Ensure the text stays in a single line */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word; /* Ensure the text wraps within the cell */
+    white-space: normal; /* Ensure the text wraps within the cell */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.copyable {
+    cursor: pointer;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.copyable:hover {
+    background-color: #e9e9e9;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 1000;
+    opacity: 0.9;
+}
+
+.contract {
+    margin-bottom: 20px;
+}
+
+.storageContainer {
+    display: flex;
+    align-items: center;
+}
+
+.storageContainer input {
+    width: 200px;
+    margin-right: 10px;
+}
+
+.storageContainer button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.storageContainer button:hover {
+    background-color: #218838;
+}

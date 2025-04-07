@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Foundry Toolbox</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Foundry Toolbox</h1>
+
+        <h2>Ethereum Contract Storage Viewer</h2>
+        <input type="text" id="contractAddress" placeholder="Enter Ethereum Contract Address">
+        <button id="getStorageButton">Get Contract Storage</button>
+        <button id="clearStorageButton" class="clear-button">Clear</button>
+        <div id="storageResult"></div>
+
+        <h2>Compute Storage Slot</h2>
+        <input type="text" id="variableType" placeholder="Enter Variable Type">
+        <input type="text" id="key" placeholder="Enter Key">
+        <input type="text" id="slotNumber" placeholder="Enter Slot Number">
+        <button id="computeSlotButton">Compute Slot</button>
+        <button id="clearSlotButton" class="clear-button">Clear</button>
+        <div id="slotResult"></div>
+
+        <h2>Get Contract Bytecode</h2>
+        <input type="text" id="bytecodeAddress" placeholder="Enter Contract Address">
+        <button id="getBytecodeButton">Get Bytecode</button>
+        <button id="clearBytecodeButton" class="clear-button">Clear</button>
+        <div id="bytecodeResult" class="copyable"></div>
+
+        <h2>Data Formatting</h2>
+        <input type="text" id="intInput" placeholder="Enter Integer">
+        <button id="convertToHexButton">Convert to Hex</button>
+        <button id="clearHexButton" class="clear-button">Clear</button>
+        <div id="hexResult" class="copyable"></div>
+
+        <input type="text" id="hexInput" placeholder="Enter Hex">
+        <button id="convertToIntButton">Convert to Int</button>
+        <button id="clearIntButton" class="clear-button">Clear</button>
+        <div id="intResult" class="copyable"></div>
+
+        <input type="text" id="padInput" placeholder="Enter Value to Pad">
+        <button id="padTo32BytesButton">Pad to 32 Bytes</button>
+        <button id="clearPadButton" class="clear-button">Clear</button>
+        <div id="padResult" class="copyable"></div>
+
+        <h2>Generate State</h2>
+        <div id="contractsContainer">
+            <div class="contract">
+                <input type="text" class="contractAddress" placeholder="Enter Contract Address">
+                <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
+                <input type="text" class="contractBalance" placeholder="Enter Balance">
+                <input type="text" class="contractNonce" placeholder="Enter Nonce">
+                <div class="storageContainer">
+                    <input type="text" class="storageKey" placeholder="Enter Storage Key">
+                    <input type="text" class="storageValue" placeholder="Enter Storage Value">
+                    <button class="addStorageButton">+</button>
+                </div>
+            </div>
+        </div>
+        <button id="addContractButton">Add Another Contract</button>
+        <button id="generateJsonButton">Generate JSON State</button>
+        <button id="clearStateButton" class="clear-button">Clear</button>
+        <div id="jsonResult" class="copyable"></div>
+        <button id="downloadJsonButton">Download JSON</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
