@@ -51,7 +51,7 @@ button:hover {
     background-color: #cc0000; /* Darker red on hover */
 }
 
-#storageResult, #slotResult, #bytecodeResult, #hexResult, #intResult, #padResult, #jsonResult {
+#storageResult, #slotResult, #bytecodeResult, #hexResult, #intResult, #padResult, #addZerosResult, #jsonResult {
     margin-top: 20px;
     word-wrap: break-word;
     white-space: nowrap; /* Ensure the text stays in a single line */
@@ -115,17 +115,72 @@ tr:hover {
 }
 
 .contract {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
     margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.contract-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.contract-header button {
+    margin-left: 10px;
+}
+
+.addContractButton {
+    background-color: #28a745;
+}
+
+.addContractButton:hover {
+    background-color: #218838;
+}
+
+.removeContractButton {
+    background-color: #ff4d4d;
+}
+
+.removeContractButton:hover {
+    background-color: #cc0000;
+}
+
+.contract-body {
+    margin-top: 10px;
+}
+
+.contract-body input {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .storageContainer {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
-.storageContainer input {
-    width: 200px;
-    margin-right: 10px;
+.storagePair {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.storagePair input {
+    width: 48%;
+}
+
+.addStorageButton {
+    background-color: #28a745;
+    margin-top: 10px;
+}
+
+.addStorageButton:hover {
+    background-color: #218838;
 }
 
 .storageContainer button {
@@ -138,4 +193,27 @@ tr:hover {
 
 .storageContainer button:hover {
     background-color: #218838;
+}
+
+.added-contracts {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+select {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
 }

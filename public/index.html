@@ -10,7 +10,19 @@
     <div class="container">
         <h1>My Foundry Toolbox</h1>
 
+        <h2>Select Chain ID</h2>
+        <select id="chainIdSelect">
+            <option value="1">Mainnet</option>
+            <option value="59144">Linea Mainnet</option>
+            <option value="10">Optimism Mainnet</option>
+            <option value="42161">Arbitrum Mainnet</option>
+            <option value="43114">Avalanche Mainnet</option>
+            <option value="137">Polygon Mainnet</option>
+            <option value="11155111">Sepolia</option>
+        </select>
+
         <h2>Ethereum Contract Storage Viewer</h2>
+        <p>Note: the minimum version for storage layouts is 0.6.5</p>
         <input type="text" id="contractAddress" placeholder="Enter Ethereum Contract Address">
         <button id="getStorageButton">Get Contract Storage</button>
         <button id="clearStorageButton" class="clear-button">Clear</button>
@@ -46,27 +58,43 @@
         <button id="clearPadButton" class="clear-button">Clear</button>
         <div id="padResult" class="copyable"></div>
 
+        <input type="text" id="addZerosInput" placeholder="Enter Integer">
+        <button id="addZerosButton">Add 18 Zeros</button>
+        <button id="clearAddZerosButton" class="clear-button">Clear</button>
+        <div id="addZerosResult" class="copyable"></div>
+
         <h2>Generate State</h2>
         <div id="contractsContainer">
             <div class="contract">
-                <input type="text" class="contractAddress" placeholder="Enter Contract Address">
-                <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
-                <input type="text" class="contractBalance" placeholder="Enter Balance">
-                <input type="text" class="contractNonce" placeholder="Enter Nonce">
-                <div class="storageContainer">
-                    <input type="text" class="storageKey" placeholder="Enter Storage Key">
-                    <input type="text" class="storageValue" placeholder="Enter Storage Value">
-                    <button class="addStorageButton">+</button>
+                <div class="contract-header">
+                    <span>Contract</span>
+                    <div>
+                        <button class="addContractButton">Add</button>
+                        <button class="removeContractButton" disabled>Remove</button>
+                    </div>
+                </div>
+                <div class="contract-body">
+                    <input type="text" class="contractAddress" placeholder="Enter Contract Address">
+                    <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
+                    <input type="text" class="contractBalance" placeholder="Enter Balance">
+                    <input type="text" class="contractNonce" placeholder="Enter Nonce">
+                    <div class="storageContainer">
+                        <div class="storagePair">
+                            <input type="text" class="storageKey" placeholder="Enter Storage Key">
+                            <input type="text" class="storageValue" placeholder="Enter Storage Value">
+                        </div>
+                    </div>
+                    <button class="addStorageButton">Add New Storage Key-Value Pair</button>
                 </div>
             </div>
         </div>
-        <button id="addContractButton">Add Another Contract</button>
+        <button id="addNewContractButton">Add New Contract</button>
+        <div id="addedContracts"></div>
         <button id="generateJsonButton">Generate JSON State</button>
         <button id="clearStateButton" class="clear-button">Clear</button>
         <div id="jsonResult" class="copyable"></div>
         <button id="downloadJsonButton">Download JSON</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,3 +1,13 @@
+
+
+document.getElementById('chainIdSelect').dispatchEvent(new Event('change'));
+document.getElementById('chainIdSelect').addEventListener('change', () => {
+    const chainId = document.getElementById('chainIdSelect').value;
+    rpcUrl = chainId;
+});
+
+let rpcUrl = 1; // Default to mainnet
+
 document.getElementById('getStorageButton').addEventListener('click', async () => {
     const contractAddress = document.getElementById('contractAddress').value;
     const storageResult = document.getElementById('storageResult');
@@ -8,11 +18,12 @@ document.getElementById('getStorageButton').addEventListener('click', async () =
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ contractAddress })
+            body: JSON.stringify({ contractAddress, rpcUrl })
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(errorText);
         }
 
         const result = await response.text();
@@ -70,11 +81,12 @@ document.getElementById('getBytecodeButton').addEventListener('click', async () 
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ bytecodeAddress })
+            body: JSON.stringify({ bytecodeAddress, rpcUrl })
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(errorText);
         }
 
         const result = await response.text();
@@ -141,24 +153,96 @@ document.getElementById('padResult').addEventListener('click', () => {
     copyToClipboard('padResult');
 });
 
-document.getElementById('addContractButton').addEventListener('click', () => {
+document.getElementById('addZerosButton').addEventListener('click', () => {
+    const addZerosInput = document.getElementById('addZerosInput').value;
+    const addZerosResult = document.getElementById('addZerosResult');
+    const result = `${addZerosInput}${'0'.repeat(18)}`;
+    addZerosResult.textContent = result;
+});
+
+document.getElementById('clearAddZerosButton').addEventListener('click', () => {
+    document.getElementById('addZerosInput').value = '';
+    document.getElementById('addZerosResult').innerHTML = '';
+});
+
+document.getElementById('addZerosResult').addEventListener('click', () => {
+    copyToClipboard('addZerosResult');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const initialContract = document.querySelector('.contract');
+    addContractButtonListeners(initialContract);
+});
+
+document.getElementById('addNewContractButton').addEventListener('click', () => {
     const contractsContainer = document.getElementById('contractsContainer');
     const contractDiv = document.createElement('div');
     contractDiv.className = 'contract';
     contractDiv.innerHTML = `
-        <input type="text" class="contractAddress" placeholder="Enter Contract Address">
-        <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
-        <input type="text" class="contractBalance" placeholder="Enter Balance">
-        <input type="text" class="contractNonce" placeholder="Enter Nonce">
-        <div class="storageContainer">
-            <input type="text" class="storageKey" placeholder="Enter Storage Key">
-            <input type="text" class="storageValue" placeholder="Enter Storage Value">
-            <button class="addStorageButton">+</button>
+        <div class="contract-header">
+            <span>Contract</span>
+            <div>
+                <button class="addContractButton">Add</button>
+                <button class="removeContractButton">Remove</button>
+            </div>
+        </div>
+        <div class="contract-body">
+            <input type="text" class="contractAddress" placeholder="Enter Contract Address">
+            <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
+            <input type="text" class="contractBalance" placeholder="Enter Balance">
+            <input type="text" class="contractNonce" placeholder="Enter Nonce">
+            <div class="storageContainer">
+                <div class="storagePair">
+                    <input type="text" class="storageKey" placeholder="Enter Storage Key">
+                    <input type="text" class="storageValue" placeholder="Enter Storage Value">
+                </div>
+            </div>
+            <button class="addStorageButton">Add New Storage Key-Value Pair</button>
         </div>
     `;
     contractsContainer.appendChild(contractDiv);
-    addStorageButtonListener(contractDiv);
+    addContractButtonListeners(contractDiv);
 });
+
+function addContractButtonListeners(contractDiv) {
+    const contractHeader = contractDiv.getElementsByClassName('contract-header')[0];
+    const addContractButton = contractDiv.getElementsByClassName('addContractButton')[0];
+    const removeContractButton = contractDiv.getElementsByClassName('removeContractButton')[0];
+    const contractBody = contractDiv.getElementsByClassName('contract-body')[0];
+    const addStorageButton = contractDiv.getElementsByClassName('addStorageButton')[0];
+
+    contractHeader.addEventListener('click', () => {
+        contractBody.style.display = contractBody.style.display === 'none' ? 'block' : 'none';
+    });
+
+    addContractButton.addEventListener('click', () => {
+        const contractAddress = contractDiv.getElementsByClassName('contractAddress')[0].value;
+        const addedContracts = document.getElementById('addedContracts');
+        const contractText = document.createElement('div');
+        contractText.textContent = contractAddress;
+        addedContracts.appendChild(contractText);
+
+        addContractButton.textContent = 'Added';
+        addContractButton.disabled = true;
+        addContractButton.classList.add('disabled');
+        contractBody.style.display = 'none';
+    });
+
+    removeContractButton.addEventListener('click', () => {
+        contractDiv.remove();
+    });
+
+    addStorageButton.addEventListener('click', () => {
+        const storageContainer = contractDiv.getElementsByClassName('storageContainer')[0];
+        const storagePair = document.createElement('div');
+        storagePair.className = 'storagePair';
+        storagePair.innerHTML = `
+            <input type="text" class="storageKey" placeholder="Enter Storage Key">
+            <input type="text" class="storageValue" placeholder="Enter Storage Value">
+        `;
+        storageContainer.appendChild(storagePair);
+    });
+}
 
 document.getElementById('generateJsonButton').addEventListener('click', () => {
     const contractsContainer = document.getElementById('contractsContainer');
@@ -197,19 +281,27 @@ document.getElementById('generateJsonButton').addEventListener('click', () => {
 document.getElementById('clearStateButton').addEventListener('click', () => {
     document.getElementById('contractsContainer').innerHTML = `
         <div class="contract">
-            <input type="text" class="contractAddress" placeholder="Enter Contract Address">
-            <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
-            <input type="text" class="contractBalance" placeholder="Enter Balance">
-            <input type="text" class="contractNonce" placeholder="Enter Nonce">
-            <div class="storageContainer">
-                <input type="text" class="storageKey" placeholder="Enter Storage Key">
-                <input type="text" class="storageValue" placeholder="Enter Storage Value">
-                <button class="addStorageButton">+</button>
+            <div class="contract-header">
+                <span>Contract</span>
+                <button class="addContractButton">Add</button>
+                <button class="removeContractButton" disabled>Remove</button>
+            </div>
+            <div class="contract-body">
+                <input type="text" class="contractAddress" placeholder="Enter Contract Address">
+                <input type="text" class="contractBytecode" placeholder="Enter Contract Bytecode">
+                <input type="text" class="contractBalance" placeholder="Enter Balance">
+                <input type="text" class="contractNonce" placeholder="Enter Nonce">
+                <div class="storageContainer">
+                    <input type="text" class="storageKey" placeholder="Enter Storage Key">
+                    <input type="text" class="storageValue" placeholder="Enter Storage Value">
+                    <button class="addStorageButton">+</button>
+                </div>
             </div>
         </div>
     `;
     document.getElementById('jsonResult').innerHTML = '';
-    addStorageButtonListener(document.querySelector('.contract'));
+    document.getElementById('addedContracts').innerHTML = '';
+    addContractButtonListeners(document.querySelector('.contract'));
 });
 
 document.getElementById('jsonResult').addEventListener('click', () => {
