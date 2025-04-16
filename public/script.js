@@ -294,7 +294,6 @@ document.getElementById('clearStateButton').addEventListener('click', () => {
                 <div class="storageContainer">
                     <input type="text" class="storageKey" placeholder="Enter Storage Key">
                     <input type="text" class="storageValue" placeholder="Enter Storage Value">
-                    <button class="addStorageButton">+</button>
                 </div>
             </div>
         </div>
@@ -327,7 +326,6 @@ function addStorageButtonListener(contractDiv) {
         storageContainer.innerHTML = `
             <input type="text" class="storageKey" placeholder="Enter Storage Key">
             <input type="text" class="storageValue" placeholder="Enter Storage Value">
-            <button class="addStorageButton">+</button>
         `;
         contractDiv.appendChild(storageContainer);
         addStorageButtonListener(storageContainer);
