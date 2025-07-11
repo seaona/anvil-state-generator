@@ -1,6 +1,6 @@
 # Anvil State Generator
 
-> ⚠️ **EXPERIMENTAL WARNING**: This tool is currently in experimental development. Some features may not work as expected, particularly with older smart contracts that use legacy compiler versions (pre-0.6.5). Storage layout inspection for these contracts fail to return results.
+> ⚠️ **EXPERIMENTAL WARNING**: This tool is currently in experimental development. Some features may not work as expected, particularly with older smart contracts that use legacy compiler versions (pre-0.6.5). Storage layout inspection for these contracts fail to return results. Furthermore, the export state as json file feature is under development, so do not rely on its results
 
 A UI toolbox for Ethereum developers that provides essential Foundry utilities for contract analysis, storage inspection, and state generation for Anvil local development.
 
@@ -131,6 +131,4 @@ This directory will help developers work with older contracts that don't support
 
 ### Planned Features
 - Automated storage layout detection for legacy contracts
-- Batch storage inspection for multiple contracts
-- Integration with popular token lists (CoinGecko, 1inch, etc.)
 - Export functionality for Anvil state files with pre-configured token states 
